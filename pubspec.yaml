@@ -70,6 +70,12 @@ flutter:
   assets:
     - assets/country/
     - assets/visit/
+    - assets/music_image/
+    - assets/visit/Argentina/
+    - assets/visit/Australia/
+    - assets/visit/Egypt/
+    - assets/visit/Sweden/
+    - assets/visit/USA/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
