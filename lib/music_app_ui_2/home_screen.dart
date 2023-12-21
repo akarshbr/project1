@@ -99,7 +99,7 @@ class _SongifyHomeState extends State<SongifyHome> {
           "Songify",
           style: GoogleFonts.bebasNeue(
               color: Colors.purpleAccent,
-              fontSize: 30,
+              fontSize: 40,
               letterSpacing: 3,
               fontWeight: FontWeight.bold),
         ),
@@ -124,6 +124,7 @@ class _SongifyHomeState extends State<SongifyHome> {
               children: List.generate(image.length, (index) {
                 return InkWell(
                   onTap: () {},
+                  splashColor: Colors.transparent,
                   child: Stack(
                     children: [
                       Container(
@@ -164,9 +165,7 @@ class _SongifyHomeState extends State<SongifyHome> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          Container(
-            color: Colors.black,
-            height: 450,
+          Expanded(
             child: ListView.builder(
                 itemCount: albumImage.length,
                 itemBuilder: (context, index) {
