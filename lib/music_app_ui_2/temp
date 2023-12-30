@@ -1,241 +1,179 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:projects1/music_app_ui_2/model/music_data.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: Musify2(),
-  ));
+  runApp(
+    MaterialApp(
+      home: const SongifyHome(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          color: Colors.black,
+          elevation: 0,
+          centerTitle: true,
+        ),
+      ),
+    ),
+  );
 }
 
-class Musify2 extends StatelessWidget {
-  var images = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSij4xw9-Z1PFYNGcfs1eZtSx55zLOtlYkZkA&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpDe7khiVDVJqsJ3t3DbcJiA4uA_I03dvq5zmC4uWqpmg21xlh1Lt_i9uauBO9BrjBuic&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPUjNfdMf5TILskAuGcIYsFB7KymtX_ShtRw&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCiaKZHoYpxWpfzWkDZl5F2PW_4TDjs2D6xA&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3DujgJHTLcE4A-0O3xfdVVece9RMlf253-jvcSoIuZ9NfMOnwDpZ8CiB2dBjRAtajOyE&usqp=CAU",
-  ];
-  var name = [
-    "Hero",
-    "unholy",
-    "lift me up",
-    "Depression",
-    "Iam good",
-  ];
-  var subname = [
-    "Taylor Swift",
-    "Sam Smith,Kim Petres",
-    "Rihanna",
-    "Dax",
-    "David Guetta & Bebe Rexha"
-  ];
-  var icon = [
-    Icons.star_border_purple500_outlined,
-    Icons.star_border_purple500_outlined,
-    Icons.star_border_purple500_outlined,
-    Icons.star_border_purple500_outlined,
-    Icons.star_border_purple500_outlined
-  ];
-  var subicon = [
-    Icons.download,
-    Icons.download,
-    Icons.download,
-    Icons.download,
-    Icons.download
+class SongifyHome extends StatefulWidget {
+  const SongifyHome({super.key});
+
+  @override
+  State<SongifyHome> createState() => _SongifyHomeState();
+}
+
+class _SongifyHomeState extends State<SongifyHome> {
+
+  var bottomNavBarIcon = [
+    FontAwesomeIcons.house,
+    FontAwesomeIcons.magnifyingGlass,
+    FontAwesomeIcons.plus,
+    FontAwesomeIcons.ellipsis,
   ];
 
   @override
   Widget build(BuildContext context) {
+    final idGI = ModalRoute.of(context)?.settings.arguments;
+    final idSD = ModalRoute.of(context)?.settings.arguments;
+    final genreImage = genreImages.firstWhere((e) => e["id"] == idGI);
+    final songDetail = songDetails.firstWhere((e1) => e1["id"] == idSD);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        centerTitle: true,
         title: Text(
-          "Musify.",
-          style: TextStyle(
+          "Songify",
+          style: GoogleFonts.bebasNeue(
+              color: Colors.purpleAccent,
               fontSize: 40,
-              fontWeight: FontWeight.bold,
-              color: Colors.pinkAccent),
+              letterSpacing: 3,
+              fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.black,
       ),
-      body: ListView(children: [
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 300, top: 20),
-              child: Text(
-                "Suggested playlists",
-                style: TextStyle(
-                    color: Colors.pinkAccent,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10, top: 20),
+            child: Text(
+              "Suggested PLaylist",
+              style: GoogleFonts.bebasNeue(
+                  fontSize: 25,
+                  color: Colors.purpleAccent,
+                  letterSpacing: 3,
+                  fontWeight: FontWeight.bold),
             ),
-            SizedBox(
-              height: 20,
+          ),
+          Expanded(
+              child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: genreImages.map((e) {
+              return InkWell(
+                onTap: () {},
+                splashColor: Colors.transparent,
+                child: Stack(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                      height: 200,
+                      width: 200,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                              image: AssetImage(genreImage["image"]), fit: BoxFit.cover)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, top: 181),
+                      child: Text(
+                        genreImage["genre"],
+                        style: GoogleFonts.bebasNeue(
+                            color: Colors.white,
+                            fontSize: 20,
+                            letterSpacing: 3,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            }).toList(),
+          )),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, top: 30),
+            child: Text(
+              "Recommended for You",
+              style: GoogleFonts.bebasNeue(
+                  fontSize: 25,
+                  letterSpacing: 3,
+                  color: Colors.purpleAccent,
+                  fontWeight: FontWeight.bold),
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Card(
-                    child: Image.network(
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSij4xw9-Z1PFYNGcfs1eZtSx55zLOtlYkZkA&usqp=CAU"),
-                  ),
-                  Card(
-                    child: Image.network(
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPUjNfdMf5TILskAuGcIYsFB7KymtX_ShtRw&usqp=CAU"),
-                  ),
-                  Card(
-                    child: Image.network(
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpDe7khiVDVJqsJ3t3DbcJiA4uA_I03dvq5zmC4uWqpmg21xlh1Lt_i9uauBO9BrjBuic&usqp=CAU"),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 270, top: 20, bottom: 20),
-              child: Text(
-                "Recommended playlists",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.pinkAccent),
-              ),
-            ),
-          ],
-        ),
-        Container(
-          color: Colors.black,
-          height: 350,
-          width: 300,
-          child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) {
+          ),
+          Expanded(
+            child: ListView(
+              children: songDetails.map((e) {
                 return Padding(
-                  padding: const EdgeInsets.only(
-                      left: 15, right: 15, top: 15, bottom: 15),
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                   child: ListTile(
                     onTap: () {},
-                    leading: Image.network(images[index]),
-                    title: Text(name[index],
-                        style:
-                            TextStyle(fontSize: 20, color: Colors.pinkAccent)),
-                    tileColor: Colors.black12,
+                    leading: Image.asset(songDetail["image"]),
+                    title: Text(songDetail["songName"],
+                        style: GoogleFonts.bebasNeue(
+                          color: Colors.purpleAccent,
+                          fontSize: 20,
+                          letterSpacing: 2,
+                        )),
                     subtitle: Text(
-                      subname[index],
-                      style: TextStyle(color: Colors.white),
+                      songDetail["artist"],
+                      maxLines: 1,
+                      style: GoogleFonts.bebasNeue(
+                        color: Colors.white,
+                        fontSize: 12,
+                        letterSpacing: 2,
+                      ),
                     ),
                     trailing: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          icon[index],
-                          color: Colors.pinkAccent,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Icon(
-                          subicon[index],
-                          color: Colors.pinkAccent,
-                        )
+                        IconButton(
+                            highlightColor: Colors.purple,
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.star_border,
+                              color: Colors.purpleAccent,
+                            )),
+                        IconButton(
+                            highlightColor: Colors.purple,
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.download,
+                              color: Colors.purpleAccent,
+                            )),
                       ],
                     ),
                   ),
                 );
-              }),
-        ),
-      ]),
-      bottomNavigationBar: BottomNavigationBar(
-          items: [BottomNavigationBarItem(backgroundColor: Colors.black87,icon: Icon(Icons.home,color: Colors.pinkAccent,),label: "",),
-            BottomNavigationBarItem(icon: Icon(Icons.search_rounded,color: Colors.pinkAccent,),label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.playlist_add,color: Colors.pinkAccent,),label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.more_horiz,color: Colors.pinkAccent,),label: "")]),
-    );
-  }
-}
-
-
-
-SingleChildScrollView(
-            scrollDirection: Axis.horizont
-            child: Row(
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      height: 200,
-                      width: 200,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                              image: AssetImage("assets/music_image/music.jpg"),
-                              fit: BoxFit.cover)),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20,top: 160),
-                      child: Text("Name1",style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 20),),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                      height: 200,
-                      width: 200,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                              image: AssetImage("assets/music_image/podcast.jpg"),
-                              fit: BoxFit.cover)),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20,top: 160),
-                      child: Text("Name2",style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 20),),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                      height: 200,
-                      width: 200,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                              image: AssetImage("assets/music_image/liveevent.jpg"),
-                              fit: BoxFit.cover)),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20,top: 160),
-                      child: Text("Name3",style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 20),),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                      height: 200,
-                      width: 200,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                              image: AssetImage("assets/music_image/abstractpiano.jpg"),
-                              fit: BoxFit.cover)),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20,top: 160),
-                      child: Text("Name4",style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 20),),
-                    ),
-                  ],
-                ),
-              ],
+              }).toList(),
             ),
-          )
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+          elevation: 0,
+          iconSize: 20,
+          items: List.generate(4, (index) {
+            return BottomNavigationBarItem(
+                backgroundColor: Colors.black,
+                icon: Icon(
+                  bottomNavBarIcon[index],
+                  color: Colors.purpleAccent,
+                ),
+                label: "");
+          })),
+    );
+  }
+}
