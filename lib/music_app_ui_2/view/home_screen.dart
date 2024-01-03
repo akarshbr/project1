@@ -134,8 +134,8 @@ class _SongifyHomeState extends State<SongifyHome> {
                         width: 200,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            image:
-                                DecorationImage(image: AssetImage(image[index]), fit: BoxFit.cover)),
+                            image: DecorationImage(
+                                image: AssetImage(image[index]), fit: BoxFit.cover)),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 20, top: 181),
@@ -167,48 +167,50 @@ class _SongifyHomeState extends State<SongifyHome> {
           ),
           Expanded(
             child: ListView.builder(
-                itemCount: albumImage.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    onTap: () {},
-                    leading: Image.asset(albumImage[index]),
-                    title: Text(songName[index],
-                        style: GoogleFonts.bebasNeue(
-                          color: Colors.purpleAccent,
-                          fontSize: 20,
-                          letterSpacing: 2,
-                        )),
-                    subtitle: Text(
-                      artist[index],
-                      maxLines: 1,
+              itemCount: albumImage.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  onTap: () {},
+                  leading: Image.asset(albumImage[index]),
+                  title: Text(songName[index],
                       style: GoogleFonts.bebasNeue(
-                        color: Colors.white,
-                        fontSize: 12,
+                        color: Colors.purpleAccent,
+                        fontSize: 20,
                         letterSpacing: 2,
+                      )),
+                  subtitle: Text(
+                    artist[index],
+                    maxLines: 1,
+                    style: GoogleFonts.bebasNeue(
+                      color: Colors.white,
+                      fontSize: 12,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                  trailing: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                          highlightColor: Colors.purple,
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.star_border,
+                            color: Colors.purpleAccent,
+                          )),
+                      IconButton(
+                        highlightColor: Colors.purple,
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.download,
+                          color: Colors.purpleAccent,
+                        ),
                       ),
-                    ),
-                    trailing: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                            highlightColor: Colors.purple,
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.star_border,
-                              color: Colors.purpleAccent,
-                            )),
-                        IconButton(
-                            highlightColor: Colors.purple,
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.download,
-                              color: Colors.purpleAccent,
-                            )),
-                      ],
-                    ),
-                  );
-                }),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
